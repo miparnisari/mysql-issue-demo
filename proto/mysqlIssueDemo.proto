@@ -1,0 +1,33 @@
+syntax = "proto3";
+package mysql_issue_demo;
+option go_package = "github.com/miparnisari/mysql-issue-demo";
+
+import "google/api/field_behavior.proto";
+import "validate/validate.proto";
+import "google/api/annotations.proto";
+
+service MysqlIssueDemo {
+  rpc Write(WriteRequest) returns (WriteResponse) {
+    option (google.api.http) = {
+      post: "/"
+    };
+  }
+  rpc GetAllStores(GetAllStoresRequest) returns (GetAllStoresResponse) {
+    option (google.api.http) = {
+      get: "/"
+    };
+  }
+}
+
+message WriteRequest {
+}
+
+message WriteResponse {
+}
+
+message GetAllStoresRequest {
+}
+
+message GetAllStoresResponse {
+  repeated string store_ids = 1;
+}
