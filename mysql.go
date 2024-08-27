@@ -8,6 +8,7 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/cenkalti/backoff/v4"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/oklog/ulid/v2"
 	"github.com/pressly/goose/v3"
 )
@@ -17,8 +18,6 @@ type Config struct {
 	MaxIdleConns    int
 	ConnMaxIdleTime time.Duration
 	ConnMaxLifetime time.Duration
-
-	ExportMetrics bool
 }
 
 type MySQL struct {
@@ -27,7 +26,6 @@ type MySQL struct {
 	sqlTime interface{}
 }
 
-// New creates a new [MySQL] storage.
 func New(uri string, cfg *Config) (*MySQL, error) {
 	db, err := sql.Open("mysql", uri)
 	if err != nil {
