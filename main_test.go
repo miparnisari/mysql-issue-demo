@@ -45,7 +45,7 @@ func TestMySQLConcurrency(t *testing.T) {
 	require.NoError(t, err)
 	serverClient := protoFile.NewMysqlIssueDemoClient(serverConn)
 
-	for i := 0; i < 2; i++ {
+	for i := 0; i < 200; i++ {
 		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
 			t.Parallel()
 
