@@ -28,7 +28,7 @@ func TestMySQLConcurrency(t *testing.T) {
 
 	// pick a port where the server will run
 	grpcPort, grpcPortReleaser := TCPRandomPort()
-	defer grpcPortReleaser()
+	grpcPortReleaser()
 
 	go func() {
 		err := runServer(ctx, grpcPort, mysqlUri)
