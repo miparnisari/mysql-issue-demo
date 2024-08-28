@@ -47,7 +47,7 @@ func runServer(ctx context.Context, grpcPort int, dbUri string) error {
 	go func() {
 		fmt.Println(fmt.Sprintf("grpc server listening on %d", grpcPort))
 		if err := grpcServer.Serve(lis); err != nil {
-			fmt.Errorf("failed to start gRPC server: %w", err)
+			fmt.Println("failed to start gRPC server: %w", err)
 		}
 	}()
 	// wait for goroutine above to start
@@ -56,9 +56,6 @@ func runServer(ctx context.Context, grpcPort int, dbUri string) error {
 	<-ctx.Done()
 
 	fmt.Println("attempting to shutdown gracefully...")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
 
 	grpcServer.GracefulStop()
 	service.Close()

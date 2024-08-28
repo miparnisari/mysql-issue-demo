@@ -20,6 +20,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestMySQLConcurrency(t *testing.T) {
+	t.Parallel()
 	mysqlDocker := RunMySQLTestContainer(t)
 	mysqlUri := mysqlDocker.GetConnectionURI(true)
 

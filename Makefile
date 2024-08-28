@@ -17,3 +17,7 @@ build: build-protos ## Build
 .PHONY: test
 test: ## Run tests
 	go test -race -v -count=1 -timeout=10m ./...
+
+.PHONY: lint
+lint:
+	golangci-lint run -v --fix -c .golangci.yaml ./...
