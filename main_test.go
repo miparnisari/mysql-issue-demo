@@ -21,6 +21,7 @@ func TestMain(m *testing.M) {
 
 func TestMySQLConcurrency(t *testing.T) {
 	mysqlDocker := RunMySQLTestContainer(t)
+	mysqlUri := mysqlDocker.GetConnectionURI(true)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	t.Cleanup(cancel)
@@ -30,7 +31,7 @@ func TestMySQLConcurrency(t *testing.T) {
 	defer grpcPortReleaser()
 
 	go func() {
-		err := runServer(ctx, grpcPort, mysqlDocker.GetConnectionURI(true))
+		err := runServer(ctx, grpcPort, mysqlUri)
 		if err != nil {
 			t.Log(err)
 		}
@@ -53,6 +54,8 @@ func TestMySQLConcurrency(t *testing.T) {
 
 			_, err = serverClient.GetAllStores(ctx, nil)
 			require.NoError(t, err)
+
+			t.Log("Passed", i)
 		})
 	}
 }

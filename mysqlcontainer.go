@@ -137,7 +137,7 @@ func RunMySQLTestContainer(t testing.TB) DatastoreTestContainer {
 	}
 
 	uri := fmt.Sprintf("%s:%s@tcp(%s)/defaultdb?parseTime=true", mySQLTestContainer.username, mySQLTestContainer.password, mySQLTestContainer.addr)
-
+	t.Log(uri)
 	err = mysql.SetLogger(log.New(io.Discard, "", 0))
 	require.NoError(t, err)
 
