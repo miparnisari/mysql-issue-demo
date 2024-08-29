@@ -29,7 +29,10 @@ func main() {
 }
 
 func runServer(ctx context.Context, grpcPort int, dbUri string) error {
-	mysqlDb, err := New(dbUri, &Config{})
+	mysqlDb, err := New(dbUri, &Config{
+		MaxIdleConns: 10,
+		MaxOpenConns: 30,
+	})
 	if err != nil {
 		return err
 	}
