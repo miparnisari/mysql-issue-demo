@@ -77,7 +77,6 @@ func (m *MySQL) Close() {
 }
 
 func (m *MySQL) ReadAll(ctx context.Context) ([]*Store, error) {
-	time.Sleep(1 * time.Second)
 	sb := m.stbl.
 		Select(
 			"id", "name").
@@ -106,7 +105,6 @@ func (m *MySQL) ReadAll(ctx context.Context) ([]*Store, error) {
 }
 
 func (m *MySQL) Write(ctx context.Context, storeID string) (*Store, error) {
-	time.Sleep(1 * time.Second)
 	txn, err := m.db.BeginTx(ctx, &sql.TxOptions{})
 	if err != nil {
 		return nil, err
